@@ -10,6 +10,27 @@ function Home() {
   useEffect(() => {
     async function loadMovies() {
       const data = await getTrendingMovies()
+      const genreMap = {
+      28: "Action",
+      12: "Adventure",
+      16: "Animation",
+      35: "Comedy",
+      80: "Crime",
+      99: "Doc",
+      18: "Drama",
+      10751: "Family",
+      14: "Fantasy",
+      36: "History",
+      27: "Horror",
+      10402: "Music",
+      9648: "Mystery",
+      10749: "Rom",
+      878: "Sci-Fi",
+      10770: "TV",
+      53: "Thriller",
+      10752: "War",
+      37: "Western"
+      }
       const formattedMovies = data.map(m => ({
         id: m.id,
         title: m.title,
@@ -17,7 +38,7 @@ function Home() {
         poster: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
         backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
         year: m.release_date?.slice(0, 4),
-        genre: m.genre_ids,
+        genre: genreMap[m.genre_ids[0]],
         overview: m.overview
       }))
       
