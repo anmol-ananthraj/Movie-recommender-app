@@ -2,6 +2,10 @@ const API_KEY = "46f3491ae9d76dc6f975e69faa4981d3"
 
 const BASE_URL = "https://api.themoviedb.org/3"
 
+const API_KEY2 = "6793d17e"
+
+const BASE_URL2 = "https://www.omdbapi.com/"
+
 export async function getTrendingMovies() {
   const res = await fetch(
     `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`
@@ -30,6 +34,15 @@ export async function getMovieDetails(movieId) {
 
   const res = await fetch(
     `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`
+  )
+
+  return await res.json()
+}
+
+export async function getOmdbDetails(imdbId) {
+
+  const res = await fetch(
+    `${BASE_URL2}?apikey=${API_KEY2}&i=${imdbId}`
   )
 
   return await res.json()

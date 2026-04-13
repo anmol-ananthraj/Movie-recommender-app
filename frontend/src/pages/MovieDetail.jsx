@@ -20,6 +20,14 @@ function MovieDetail() {
     loadMovie()
   }, [id])
 
+  function formatVoteCount(votes) {
+  if (votes < 1000) return votes.toString();
+
+  return (votes / 1000)
+    .toFixed(1)      
+    .replace('.0', '') + 'k'; 
+  }
+
   if (!movie) return <div className="h-screen flex items-center justify-center font-headline font-bold text-2xl">Loading...</div>
 
   return (
@@ -107,7 +115,7 @@ function MovieDetail() {
                   {movie.vote_average?.toFixed(1)}
                   <span className="text-xl text-on-surface/20 uppercase tracking-widest font-black">/10</span>
                 </div>
-                <p className="text-on-surface/40 text-xs mt-3 font-bold tracking-wide">Based on 142k audience reviews</p>
+                <p className="text-on-surface/40 text-xs mt-3 font-bold tracking-wide">Based on {formatVoteCount(movie.vote_count)} audience reviews</p>
               </div>
             </div>
 
