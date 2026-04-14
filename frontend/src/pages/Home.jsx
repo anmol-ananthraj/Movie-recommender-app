@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react"
 import GenreRow from "../components/GenreRow"
 import Hero from "../components/Hero"
-import { getTrendingMovies,getMovieDetails } from "../api/tmdb"
+import { getTrendingMovies, getMoviesByGenre } from "../api/tmdb"
 
 function Home() {
   const [movies, setMovies] = useState([])
   const [featuredMovie, setFeaturedMovie] = useState(null)
-
+  const [horrormovies, sethorrorMovies] = useState([])
+  const [actionmovies, setactionMovies] = useState([])
   useEffect(() => {
     async function loadMovies() {
       const data = await getTrendingMovies()
+      const horror = await getMoviesByGenre(27)
+      const action = await getMoviesByGenre(28)
       const genreMap = {
       28: "Action",
       12: "Adventure",
@@ -31,6 +34,26 @@ function Home() {
       10752: "War",
       37: "Western"
       }
+      const horrorformattedMovies = horror.map(m => ({
+        id: m.id,
+        title: m.title,
+        rating: m.vote_average,
+        poster: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
+        backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+        year: m.release_date?.slice(0, 4),
+        genre: genreMap[m.genre_ids[0]],
+        overview: m.overview
+      }))
+      const actionformattedMovies = action.map(m => ({
+        id: m.id,
+        title: m.title,
+        rating: m.vote_average,
+        poster: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
+        backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+        year: m.release_date?.slice(0, 4),
+        genre: genreMap[m.genre_ids[0]],
+        overview: m.overview
+      }))
       const formattedMovies = data.map(m => ({
         id: m.id,
         title: m.title,
@@ -41,7 +64,8 @@ function Home() {
         genre: genreMap[m.genre_ids[0]],
         overview: m.overview
       }))
-      
+      sethorrorMovies(horrorformattedMovies)
+      setactionMovies(actionformattedMovies)
       setMovies(formattedMovies)
       if (formattedMovies.length > 0) {
         setFeaturedMovie(formattedMovies[0])
@@ -96,6 +120,9 @@ function Home() {
         </section>
 
         <GenreRow title="New Releases" movies={movies.slice(10)} />
+        <GenreRow title="Horror" movies={horrormovies} />
+        <GenreRow title="Action" movies={actionmovies} />
+
       </div>
 
       <footer className="w-full py-12 border-t border-outline-variant/15 bg-surface dark:bg-[#131313]">

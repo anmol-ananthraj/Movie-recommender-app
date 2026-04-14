@@ -24,7 +24,7 @@ function MovieCard({ movie }) {
       </div>
       <h3 className="font-headline font-bold text-lg text-on-surface truncate">{movie.title}</h3>
       <p className="text-xs font-body text-on-surface/40 uppercase tracking-widest mt-1">
-        {movie.genre || "action"} • {movie.year|| "2024"}
+       {movie.year|| "2024"}
       </p>
     </div>
   )

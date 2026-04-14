@@ -14,6 +14,14 @@ export async function getTrendingMovies() {
   return data.results
 }
 
+export async function getMoviesByGenre(genreId) {
+  const res = await fetch(
+    `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`
+  )
+  const data = await res.json()
+  return data.results
+}
+
 
 export async function getMovieTrailer(movieId) {
   const res = await fetch(
