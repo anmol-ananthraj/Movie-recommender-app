@@ -1,18 +1,22 @@
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { getMovieDetails, getMovieCredits, getMovieVideos } from "../api/tmdb"
+import { getMovieDetails, getMovieCredits, getOmdbDetails } from "../api/tmdb"
 
 function MovieDetail() {
   const { id } = useParams()
   const [movie, setMovie] = useState(null)
   const [cast, setCast] = useState([])
   const [director, setDirector] = useState("")
-
+  const [omdbmovie, setOmdbMovie] = useState(null)
   useEffect(() => {
     async function loadMovie() {
       const details = await getMovieDetails(id)
       const credits = await getMovieCredits(id)
+      const omdbDetails = await getOmdbDetails(details.imdb_id)
+      console.log(omdbDetails)
+      console.log(details)
       setMovie(details)
+      setOmdbMovie(omdbDetails)
       setCast(credits.cast.slice(0, 3))
       const d = credits.crew.find(p => p.job === "Director")
       if (d) setDirector(d.name)
@@ -108,7 +112,7 @@ function MovieDetail() {
                 <div className="bg-secondary/10 p-4 rounded-xl text-secondary">
                   <span className="material-symbols-outlined text-3xl">star</span>
                 </div>
-                <span className="text-[11px] font-black tracking-[0.3em] text-on-surface/30 uppercase">IMDb SCORE</span>
+                <span className="text-[11px] font-black tracking-[0.3em] text-on-surface/30 uppercase">TMDb SCORE</span>
               </div>
               <div className="relative">
                 <div className="text-6xl font-headline font-black text-secondary flex items-baseline gap-1">
@@ -132,7 +136,7 @@ function MovieDetail() {
               </div>
               <div className="relative">
                 <div className="text-6xl font-headline font-black text-primary flex items-baseline gap-1">
-                  94<span className="text-xl text-on-surface/20 uppercase tracking-widest font-black">%</span>
+                  {omdbmovie?.Ratings?.find((r) => r.Source === "Rotten Tomatoes")?.Value || "N/A"}<span className="text-xl text-on-surface/20 uppercase tracking-widest font-black">%</span>
                 </div>
                 <p className="text-on-surface/40 text-xs mt-3 font-bold tracking-wide">Certified Fresh by Top Critics</p>
               </div>
@@ -151,7 +155,7 @@ function MovieDetail() {
               </div>
               <div className="relative">
                 <div className="text-6xl font-headline font-black text-primary flex items-baseline gap-1">
-                  89<span className="text-xl text-on-surface/20 uppercase tracking-widest font-black">%</span>
+                  {omdbmovie?.tomatoUserMeter || "N/A"}<span className="text-xl text-on-surface/20 uppercase tracking-widest font-black">%</span>
                 </div>
                 <p className="text-on-surface/40 text-xs mt-3 font-bold tracking-wide">Verified Ticket Buyers</p>
               </div>
