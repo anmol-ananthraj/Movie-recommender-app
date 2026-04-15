@@ -33,7 +33,7 @@ function GenreRow({ title, movies }) {
         <button
           onClick={scrollLeft}
           aria-label={`Scroll ${title} left`}
-          className="absolute left-10 top-[42%] z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-surface/75 shadow-[0_14px_28px_-14px_rgba(0,0,0,0.85)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-primary/30 hover:bg-surface-container-high active:scale-95 sm:left-1 sm:h-10 sm:w-10 md:left-2 md:h-11 md:w-11"
+          className="absolute left-0 top-[42%] z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-surface/75 shadow-[0_14px_28px_-14px_rgba(0,0,0,0.85)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-primary/30 hover:bg-surface-container-high active:scale-95 sm:left-2 sm:h-10 sm:w-10 md:left-3 md:h-11 md:w-11"
         >
           <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/10 to-transparent opacity-70"></span>
           <img
@@ -46,7 +46,7 @@ function GenreRow({ title, movies }) {
         <button
           onClick={scrollRight}
           aria-label={`Scroll ${title} right`}
-          className="absolute right-0 top-[42%] z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-surface/75 shadow-[0_14px_28px_-14px_rgba(0,0,0,0.85)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-primary/30 hover:bg-surface-container-high active:scale-95 sm:right-1 sm:h-10 sm:w-10 md:right-2 md:h-11 md:w-11"
+          className="absolute right-0 top-[42%] z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-surface/75 shadow-[0_14px_28px_-14px_rgba(0,0,0,0.85)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-primary/30 hover:bg-surface-container-high active:scale-95 sm:right-2 sm:h-10 sm:w-10 md:right-3 md:h-11 md:w-11"
         >
           <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/10 to-transparent opacity-70"></span>
           <img
