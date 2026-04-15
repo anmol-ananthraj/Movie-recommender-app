@@ -75,7 +75,7 @@ function Home() {
   }, [])
 
   return (
-    <div className="space-y-16 py-0 pb-20 px-0">
+    <div className="space-y-16 py-0 pb-20 px-0 overflow-x-hidden">
       <Hero movie={featuredMovie} />
       
       <div className="space-y-5 py-0 px-8 md:px-16">
