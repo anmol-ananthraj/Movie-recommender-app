@@ -1,16 +1,41 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import { getTrendingMovies } from "../api/tmdb"
+import { searchMovies, getMoviesByGenre } from "../api/tmdb"
 
 function Search() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const query = searchParams.get("q")
+  const normalizedQuery = query?.trim().toLowerCase()
   const [results, setResults] = useState([])
-
+  const genreMap = {
+  action: 28,
+  adventure: 12,
+  comedy: 35,
+  funny: 35,
+  crime: 80,
+  drama: 18,
+  family: 10751,
+  fantasy: 14,
+  history: 36,
+  horror: 27,
+  scary: 27,
+  suspense: 53,
+  thriller: 53,
+  mystery: 9648,
+  romance: 10749,
+  romantic: 10749,
+  love: 10749,
+  scifi: 878,
+  "science fiction": 878,
+  war: 10752,
+  western: 37
+  }
+  const genreId = genreMap[normalizedQuery]
   useEffect(() => {
     async function fetchResults() {
-      const data = await getTrendingMovies()
+      if (genreId){
+      const data = await getMoviesByGenre(genreId)
       setResults(data.map(m => ({
         id: m.id,
         title: m.title,
@@ -21,6 +46,19 @@ function Search() {
         genre: "Sci-Fi",
         overview: m.overview
       })))
+      } else{
+        const data = await searchMovies(query)
+        setResults(data.map(m => ({
+        id: m.id,
+        title: m.title,
+        rating: m.vote_average,
+        poster: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
+        backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
+        year: m.release_date?.slice(0, 4),
+        genre: "Sci-Fi",
+        overview: m.overview
+      })))
+      }
     }
     fetchResults()
   }, [query])
@@ -145,7 +183,7 @@ function Search() {
                   </div>
                   <div className="mb-4 flex gap-2">
                     <span className="text-[10px] font-bold uppercase text-on-surface/40">{movie.genre}</span>
-                    <span className="text-[10px] font-bold uppercase text-on-surface/40">•</span>
+                    <span className="text-[10px] font-bold uppercase text-on-surface/40">ï¿½</span>
                     <span className="text-[10px] font-bold uppercase text-on-surface/40">Trending</span>
                   </div>
                   <p className="mb-4 border-l-2 border-primary pl-3 text-xs italic text-on-surface/60">
@@ -182,7 +220,7 @@ function Search() {
             <a className="font-body text-xs uppercase tracking-widest text-on-surface/40 transition-opacity hover:text-on-surface" href="#">API Docs</a>
           </div>
           <div className="font-body text-[10px] uppercase tracking-widest text-on-surface/20">
-            © 2024 CineSpotlight. The Digital Projectionist.
+            ï¿½ 2024 CineSpotlight. The Digital Projectionist.
           </div>
         </div>
       </footer>
