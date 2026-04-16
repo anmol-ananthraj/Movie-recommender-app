@@ -46,7 +46,7 @@ function Search() {
         genre: "Sci-Fi",
         overview: m.overview
       })))
-      } else{
+      } else if(query){
         const data = await searchMovies(query)
         setResults(data.map(m => ({
         id: m.id,
@@ -58,7 +58,7 @@ function Search() {
         genre: "Sci-Fi",
         overview: m.overview
       })))
-      }
+      } 
     }
     fetchResults()
   }, [query])
