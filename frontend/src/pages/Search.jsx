@@ -82,6 +82,7 @@ function Search() {
               <span className="font-headline text-base text-on-surface/30 md:text-lg">{results.length} Results found</span>
             </div>
 
+            {results.length > 0 &&(
             <div className="flex flex-wrap gap-2">
               {metadataTags.map((tag) => (
                 <span
@@ -92,8 +93,10 @@ function Search() {
                 </span>
               ))}
             </div>
+            )}
           </div>
 
+          {results.length > 0 ? (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
             {topMatch && (
               <div className="group relative overflow-hidden rounded-xl bg-surface-container-low xl:col-span-2">
@@ -199,14 +202,22 @@ function Search() {
               </div>
             ))}
           </div>
+          ) : (
+          <div className="flex min-h-[300px] items-center justify-center">
+          <p className="font-headline text-3xl font-bold text-on-surface/50">Not found</p>
+          </div>
+          )}
 
-          <div className="mt-20 flex flex-col items-center">
+          {results.length > 0 &&(
+            <div className="mt-20 flex flex-col items-center">
             <div className="mb-8 h-[1px] w-24 bg-outline-variant/30"></div>
             <button className="rounded-full border border-outline-variant/30 px-10 py-4 font-headline text-xs font-bold uppercase tracking-[0.2em] transition-all hover:bg-on-surface hover:text-surface">
               Show More Results
             </button>
           </div>
+          )}
         </div>
+
       </main>
 
       <footer className="border-t border-outline-variant/15 bg-surface py-12">

@@ -14,9 +14,25 @@ export async function getTrendingMovies() {
   return data.results
 }
 
+export async function getTrendingTvShows() {
+  const res = await fetch(
+    `${BASE_URL}/trending/tv/week?api_key=${API_KEY}`
+  )
+  const data = await res.json()
+  return data.results
+}
+
 export async function getMoviesByGenre(genreId) {
   const res = await fetch(
     `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`
+  )
+  const data = await res.json()
+  return data.results
+}
+
+export async function getTvShowsByGenre(genreId) {
+  const res = await fetch(
+    `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=${genreId}`
   )
   const data = await res.json()
   return data.results
@@ -47,6 +63,14 @@ export async function getMovieDetails(movieId) {
   return await res.json()
 }
 
+export async function getTvDetails(tvId) {
+  const res = await fetch(
+    `${BASE_URL}/tv/${tvId}?api_key=${API_KEY}`
+  )
+
+  return await res.json()
+}
+
 export async function getOmdbDetails(imdbId) {
 
   const res = await fetch(
@@ -61,6 +85,22 @@ export async function getMovieCredits(movieId) {
 
   const res = await fetch(
     `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`
+  )
+
+  return await res.json()
+}
+
+export async function getTvCredits(tvId) {
+  const res = await fetch(
+    `${BASE_URL}/tv/${tvId}/credits?api_key=${API_KEY}`
+  )
+
+  return await res.json()
+}
+
+export async function getTvExternalIds(tvId) {
+  const res = await fetch(
+    `${BASE_URL}/tv/${tvId}/external_ids?api_key=${API_KEY}`
   )
 
   return await res.json()

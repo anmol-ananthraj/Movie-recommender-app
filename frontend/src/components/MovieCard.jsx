@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom"
 
 function MovieCard({ movie }) {
   const navigate = useNavigate()
+  const detailPath = movie.mediaType === "tv" ? `/tv/${movie.id}` : `/movie/${movie.id}`
 
   return (
-    <div className="flex-none w-[280px] group cursor-pointer" onClick={() => navigate(`/movie/${movie.id}`)}>
+    <div className="flex-none w-[280px] group cursor-pointer" onClick={() => navigate(detailPath)}>
       <div className="relative aspect-[2/3] rounded-xl overflow-hidden mb-4 bg-surface-container shadow-2xl">
         <img 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 

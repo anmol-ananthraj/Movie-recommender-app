@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react"
 import GenreRow from "../components/GenreRow"
 import Hero from "../components/Hero"
-import { getTrendingMovies, getMoviesByGenre } from "../api/tmdb"
+import { getTrendingMovies, getMoviesByGenre, getTrendingTvShows } from "../api/tmdb"
 
 function Home() {
   const [movies, setMovies] = useState([])
   const [featuredMovie, setFeaturedMovie] = useState(null)
   const [horrormovies, sethorrorMovies] = useState([])
   const [actionmovies, setactionMovies] = useState([])
+  const [tvShows, setTvShows] = useState([])
   useEffect(() => {
     async function loadMovies() {
       const data = await getTrendingMovies()
       const horror = await getMoviesByGenre(27)
       const action = await getMoviesByGenre(28)
+      const tv = await getTrendingTvShows()
       const genreMap = {
       28: "Action",
       12: "Adventure",
@@ -62,10 +64,23 @@ function Home() {
         backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
         year: m.release_date?.slice(0, 4),
         genre: genreMap[m.genre_ids[0]],
-        overview: m.overview
+        overview: m.overview,
+        mediaType: "movie"
+      }))
+      const formattedTvShows = tv.map(show => ({
+        id: show.id,
+        title: show.name,
+        rating: show.vote_average,
+        poster: `https://image.tmdb.org/t/p/w500${show.poster_path}`,
+        backdrop: `https://image.tmdb.org/t/p/original${show.backdrop_path}`,
+        year: show.first_air_date?.slice(0, 4),
+        genre: genreMap[show.genre_ids[0]] || "TV",
+        overview: show.overview,
+        mediaType: "tv"
       }))
       sethorrorMovies(horrorformattedMovies)
       setactionMovies(actionformattedMovies)
+      setTvShows(formattedTvShows)
       setMovies(formattedMovies)
       if (formattedMovies.length > 0) {
         setFeaturedMovie(formattedMovies[0])
@@ -81,6 +96,7 @@ function Home() {
       <div className="space-y-5 py-0 px-8 md:px-16">
         <GenreRow title="Trending Content" movies={movies} />
         <GenreRow title="New Releases" movies={movies.slice(10)} />
+        <GenreRow title="TV Shows" movies={tvShows} />
         <GenreRow title="Horror" movies={horrormovies} />
         <GenreRow title="Action" movies={actionmovies} />
       </div>
