@@ -24,6 +24,8 @@ function MovieHeroCarousel({ movies = [] }) {
   if (!movies.length) return null
 
   const activeMovie = movies[activeIndex]
+  const detailPath = activeMovie.mediaType === "tv" ? `/tv/${activeMovie.id}` : `/movie/${activeMovie.id}`
+  const isTv = activeMovie.mediaType === "tv"
 
   return (
     <section className="relative min-h-[860px] w-full overflow-hidden flex items-center">
@@ -41,7 +43,7 @@ function MovieHeroCarousel({ movies = [] }) {
         <div className="max-w-2xl">
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <span className="rounded-full bg-white px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.35em] text-[#131313]">
-              Movie Spotlight
+              {isTv ? "Series Spotlight" : "Movie Spotlight"}
             </span>
             <span className="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.35em] text-white/70">
               Slide {String(activeIndex + 1).padStart(2, "0")}
@@ -67,9 +69,9 @@ function MovieHeroCarousel({ movies = [] }) {
           <div className="flex flex-wrap items-center gap-4">
             <button
               className="primary-gradient rounded-md px-8 py-4 font-headline text-sm font-bold tracking-[0.25em] text-on-primary transition-transform hover:scale-105 active:scale-95"
-              onClick={() => navigate(`/movie/${activeMovie.id}`)}
+              onClick={() => navigate(detailPath)}
             >
-              OPEN MOVIE
+              OPEN {activeMovie.mediaType === "tv" ? "SERIES" : "MOVIE"}
             </button>
             <button
               className="rounded-md border border-white/15 bg-white/5 px-8 py-4 font-headline text-sm font-bold tracking-[0.25em] text-on-surface transition-all hover:bg-white/10"
@@ -124,7 +126,7 @@ function MovieHeroCarousel({ movies = [] }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-[#070707]/25 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-5">
                   <p className="mb-2 text-[10px] font-black uppercase tracking-[0.35em] text-white/65">
-                    {isActive ? "Now Showing" : "Up Next"}
+                    {isActive ? (isTv ? "Now Streaming" : "Now Showing") : "Up Next"}
                   </p>
                   <h2 className="line-clamp-2 font-headline text-xl font-black uppercase tracking-tight text-white">
                     {movie.title}

@@ -8,6 +8,7 @@ function Nav() {
 
   const homeActive = location.pathname === "/"
   const moviesActive = location.pathname === "/movies"
+  const seriesActive = location.pathname === "/series"
 
   const handleSearch = (e) => {
     if (e.key === 'Enter' && searchTerm.trim()) {
@@ -26,10 +27,10 @@ function Nav() {
           Reelboxd
         </div>
         
-        <div className="hidden md:flex items-center gap-8 justify-self-center">
+        <div className="hidden md:flex items-center gap-8 justify-self-center ml-16 lg:ml-24">
           <Link to="/" className={`pb-1 font-headline transition-colors ${homeActive ? "border-b-2 border-[#E50914] font-bold text-on-surface" : "font-medium text-on-surface/70 hover:text-on-surface"}`}>Home</Link>
           <Link to="/movies" className={`pb-1 font-headline transition-colors ${moviesActive ? "border-b-2 border-[#E50914] font-bold text-on-surface" : "font-medium text-on-surface/70 hover:text-on-surface"}`}>Movie</Link>
-          <Link to="/series" className="text-on-surface/70 font-medium hover:text-on-surface transition-colors font-headline">Series</Link>
+          <Link to="/series" className={`pb-1 font-headline transition-colors ${seriesActive ? "border-b-2 border-[#E50914] font-bold text-on-surface" : "font-medium text-on-surface/70 hover:text-on-surface"}`}>Series</Link>
         </div>
 
         <div className="flex items-center gap-6 justify-self-end">
