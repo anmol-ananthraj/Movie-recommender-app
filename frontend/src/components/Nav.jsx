@@ -1,9 +1,13 @@
 import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, useLocation } from "react-router-dom"
 
 function Nav() {
   const [searchTerm, setSearchTerm] = useState("")
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const homeActive = location.pathname === "/"
+  const moviesActive = location.pathname === "/movies"
 
   const handleSearch = (e) => {
     if (e.key === 'Enter' && searchTerm.trim()) {
@@ -14,7 +18,7 @@ function Nav() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-xl dark:bg-[#131313]/60">
-      <div className="flex justify-between items-center px-8 h-20 w-full">
+      <div className="grid grid-cols-[auto_1fr_auto] items-center px-8 h-20 w-full">
         <div 
           className="text-2xl font-black tracking-tighter text-[#E50914] font-headline cursor-pointer"
           onClick={() => navigate("/")}
@@ -22,14 +26,13 @@ function Nav() {
           Reelboxd
         </div>
         
-        <div className="hidden md:flex items-center gap-8">
-          <Link to="/" className="text-on-surface font-bold border-b-2 border-[#E50914] pb-1 font-headline">Home</Link>
-          <Link to="/movies" className="text-on-surface/70 font-medium hover:text-on-surface transition-colors font-headline">Movies</Link>
+        <div className="hidden md:flex items-center gap-8 justify-self-center">
+          <Link to="/" className={`pb-1 font-headline transition-colors ${homeActive ? "border-b-2 border-[#E50914] font-bold text-on-surface" : "font-medium text-on-surface/70 hover:text-on-surface"}`}>Home</Link>
+          <Link to="/movies" className={`pb-1 font-headline transition-colors ${moviesActive ? "border-b-2 border-[#E50914] font-bold text-on-surface" : "font-medium text-on-surface/70 hover:text-on-surface"}`}>Movie</Link>
           <Link to="/series" className="text-on-surface/70 font-medium hover:text-on-surface transition-colors font-headline">Series</Link>
-          <Link to="/trending" className="text-on-surface/70 font-medium hover:text-on-surface transition-colors font-headline">Trending</Link>
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 justify-self-end">
           <div className="relative hidden lg:block">
             <input 
               className="bg-surface-container-lowest border-none rounded-full px-6 py-2 w-64 text-sm focus:ring-1 focus:ring-primary/30 font-body placeholder:text-on-surface/30 text-on-surface" 

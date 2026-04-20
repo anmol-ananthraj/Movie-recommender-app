@@ -14,6 +14,14 @@ export async function getTrendingMovies() {
   return data.results
 }
 
+export async function getNowPlayingMovies() {
+  const res = await fetch(
+    `${BASE_URL}/movie/now_playing?api_key=${API_KEY}`
+  )
+  const data = await res.json()
+  return data.results
+}
+
 export async function getTrendingTvShows() {
   const res = await fetch(
     `${BASE_URL}/trending/tv/week?api_key=${API_KEY}`
