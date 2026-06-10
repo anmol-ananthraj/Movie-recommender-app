@@ -260,6 +260,7 @@ function MovieDetail() {
             <ul className="flex flex-col gap-2 text-xl font-headline font-bold text-on-surface/80">
               {cast.map((c, i) => <li key={i} className="hover:text-primary transition-colors cursor-default">{c.name}</li>)}
             </ul>
+          <div className="flex flex-col gap-6">different perspectives on the movie pages</div>
           </div>
           <div className="flex flex-col gap-6">
             <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-on-surface/30">PRODUCTION</h3>
