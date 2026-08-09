@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import GenreRow from "../components/GenreRow"
 import MovieHeroCarousel from "../components/MovieHeroCarousel"
-import { getMoviesByGenre, getNowPlayingMovies, getTrendingMovies } from "../api/tmdb"
+import { getMoviesByGenre, getNewReleaseMovies, getTrendingMovies } from "../api/tmdb"
 
 const genreMap = {
   28: "Action",
@@ -26,6 +26,8 @@ const genreMap = {
 }
 
 function formatMovie(movie) {
+  const genreIds = movie.genre_ids ?? movie.genreIds
+
   return {
     id: movie.tmdbId ?? movie.id,
     title: movie.title,
@@ -37,7 +39,7 @@ function formatMovie(movie) {
       movie.backdrop ??
       (movie.backdrop_path ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}` : ""),
     year: movie.releaseYear ?? movie.release_date?.slice(0, 4),
-    genre: movie.genres?.[0] ?? genreMap[movie.genre_ids?.[0]] ?? "Movie",
+    genre: movie.genres?.[0] ?? genreMap[genreIds?.[0]] ?? "Movie",
     overview: movie.description ?? movie.overview,
     mediaType: "movie",
   }
@@ -58,7 +60,7 @@ function Movies() {
     async function loadMoviePage() {
       const [trending, newReleases, horror, action, thriller, comedy, romance] = await Promise.all([
         getTrendingMovies(),
-        getNowPlayingMovies(),
+        getNewReleaseMovies(),
         getMoviesByGenre(27),
         getMoviesByGenre(28),
         getMoviesByGenre(53),
@@ -67,7 +69,7 @@ function Movies() {
       ])
 
       const trendingMovies = trending
-        .filter((movie) => (movie.poster_path || movie.poster) && (movie.backdrop_path || movie.backdrop))
+        .filter((movie) => movie.poster_path || movie.poster)
         .map(formatMovie)
 
       setHeroMovies(trendingMovies.slice(0, 4))

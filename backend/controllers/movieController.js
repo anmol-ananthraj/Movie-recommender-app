@@ -123,7 +123,14 @@ const getTrendingMovies = async (req, res) => {
   title: movie.title,
   description: movie.overview,
   poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-  rating: movie.vote_average
+  backdrop: movie.backdrop_path
+    ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+    : "",
+  rating: movie.vote_average,
+  releaseYear: movie.release_date
+    ? Number(movie.release_date.slice(0, 4))
+    : null,
+  genreIds: movie.genre_ids
 }))
     res.json(trendingMovies)
 

@@ -22,6 +22,20 @@ export async function getNowPlayingMovies() {
   return data.results
 }
 
+export async function getNewReleaseMovies() {
+  const today = new Date()
+  const oneYearAgo = new Date(today)
+  oneYearAgo.setFullYear(today.getFullYear() - 1)
+
+  const formatDate = (date) => date.toISOString().slice(0, 10)
+
+  const res = await fetch(
+    `${BASE_URL}/discover/movie?api_key=${API_KEY}&sort_by=primary_release_date.desc&primary_release_date.gte=${formatDate(oneYearAgo)}&primary_release_date.lte=${formatDate(today)}&with_release_type=2|3&region=US&vote_count.gte=20`
+  )
+  const data = await res.json()
+  return data.results
+}
+
 export async function getTrendingTvShows() {
   const res = await fetch(
     `${BASE_URL}/trending/tv/week?api_key=${API_KEY}`
@@ -146,5 +160,4 @@ export async function searchMovies(query) {
   const data = await res.json()
   return data.results
 }
-
 
