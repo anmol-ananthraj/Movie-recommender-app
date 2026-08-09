@@ -27,14 +27,18 @@ const genreMap = {
 
 function formatMovie(movie) {
   return {
-    id: movie.id,
+    id: movie.tmdbId ?? movie.id,
     title: movie.title,
-    rating: movie.vote_average,
-    poster: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "",
-    backdrop: movie.backdrop_path ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}` : "",
-    year: movie.release_date?.slice(0, 4),
-    genre: genreMap[movie.genre_ids?.[0]] || "Movie",
-    overview: movie.overview,
+    rating: movie.rating ?? movie.vote_average,
+    poster:
+      movie.poster ??
+      (movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : ""),
+    backdrop:
+      movie.backdrop ??
+      (movie.backdrop_path ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}` : ""),
+    year: movie.releaseYear ?? movie.release_date?.slice(0, 4),
+    genre: movie.genres?.[0] ?? genreMap[movie.genre_ids?.[0]] ?? "Movie",
+    overview: movie.description ?? movie.overview,
     mediaType: "movie",
   }
 }
@@ -63,7 +67,7 @@ function Movies() {
       ])
 
       const trendingMovies = trending
-        .filter((movie) => movie.poster_path && movie.backdrop_path)
+        .filter((movie) => (movie.poster_path || movie.poster) && (movie.backdrop_path || movie.backdrop))
         .map(formatMovie)
 
       setHeroMovies(trendingMovies.slice(0, 4))
@@ -84,13 +88,22 @@ function Movies() {
     <div className="space-y-16 overflow-x-hidden px-0 py-0 pb-20">
       <MovieHeroCarousel movies={heroMovies} />
 
-      <div className="space-y-5 px-8 py-0 md:px-16">
-        <GenreRow title="New realeases" movies={rows.newReleases} />
-        <GenreRow title="Horror" movies={rows.horror} />
-        <GenreRow title="Action" movies={rows.action} />
-        <GenreRow title="Thriller" movies={rows.thriller} />
-        <GenreRow title="Comedy" movies={rows.comedy} />
-        <GenreRow title="Romance" movies={rows.romance} />
+      <div className="space-y-8 px-8 py-0 md:px-16">
+        <div className="pt-2">
+          <h1 className="font-headline text-4xl font-black uppercase tracking-tight text-on-surface md:text-5xl">
+            Movies
+          </h1>
+          <div className="mt-3 h-1 w-16 bg-primary"></div>
+        </div>
+
+        <div className="space-y-5">
+          <GenreRow title="New Releases" movies={rows.newReleases} />
+          <GenreRow title="Horror" movies={rows.horror} />
+          <GenreRow title="Action" movies={rows.action} />
+          <GenreRow title="Thriller" movies={rows.thriller} />
+          <GenreRow title="Comedy" movies={rows.comedy} />
+          <GenreRow title="Romance" movies={rows.romance} />
+        </div>
       </div>
     </div>
   )
