@@ -56,34 +56,6 @@ const getMovieById = async (req, res) => {
 
 const credits = creditsResponse.data
 
-const getTrendingMovies = async (req, res) => {
-
-  try {
-
-    const response = await axios.get(
-      "https://api.themoviedb.org/3/trending/movie/week",
-      {
-        params: {
-          api_key: process.env.TMDB_API_KEY
-        }
-      }
-    )
-
-    const trendingMovies = response.data.results
-
-    res.json(trendingMovies)
-
-  } catch (error) {
-
-    console.error(error.message)
-
-    res.status(500).json({
-      message: "Failed to fetch trending movies"
-    })
-
-  }
-
-}
 
     // 3. Convert TMDb data into our Movie structure
     const cast = credits.cast
@@ -128,6 +100,39 @@ const movie = await Movie.create({
 
     res.status(500).json({
       message: "Failed to fetch movie"
+    })
+
+  }
+
+}
+const getTrendingMovies = async (req, res) => {
+
+  try {
+
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/trending/movie/week",
+      {
+        params: {
+          api_key: process.env.TMDB_API_KEY
+        }
+      }
+    )
+
+    const trendingMovies = response.data.results.map(movie => ({
+  tmdbId: movie.id,
+  title: movie.title,
+  description: movie.overview,
+  poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+  rating: movie.vote_average
+}))
+    res.json(trendingMovies)
+
+  } catch (error) {
+
+    console.error(error.message)
+
+    res.status(500).json({
+      message: "Failed to fetch trending movies"
     })
 
   }

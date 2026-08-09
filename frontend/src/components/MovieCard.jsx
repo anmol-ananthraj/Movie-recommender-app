@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 
 function MovieCard({ movie }) {
   const navigate = useNavigate()
-  const detailPath = movie.mediaType === "tv" ? `/tv/${movie.id}` : `/movie/${movie.id}`
+  const detailPath = `/movie/${movie.tmdbId}`
 
   return (
     <div className="flex-none w-[280px] group cursor-pointer" onClick={() => navigate(detailPath)}>
@@ -25,7 +25,7 @@ function MovieCard({ movie }) {
       </div>
       <h3 className="font-headline font-bold text-lg text-on-surface truncate">{movie.title}</h3>
       <p className="text-xs font-body text-on-surface/40 uppercase tracking-widest mt-1">
-       {movie.year|| "2024"}
+       {movie.releaseYear || "2024"}
       </p>
     </div>
   )

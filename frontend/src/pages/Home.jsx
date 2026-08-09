@@ -57,16 +57,15 @@ function Home() {
         overview: m.overview
       }))
       const formattedMovies = data.map(m => ({
-        id: m.id,
-        title: m.title,
-        rating: m.vote_average,
-        poster: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
-        backdrop: `https://image.tmdb.org/t/p/original${m.backdrop_path}`,
-        year: m.release_date?.slice(0, 4),
-        genre: genreMap[m.genre_ids[0]],
-        overview: m.overview,
-        mediaType: "movie"
-      }))
+  tmdbId: m.tmdbId,
+  title: m.title,
+  rating: m.rating,
+  poster: m.poster,
+  year: m.releaseYear,
+  genre: m.genres?.[0],
+  overview: m.description,
+  mediaType: "movie"
+}))
       const formattedTvShows = tv.map(show => ({
         id: show.id,
         title: show.name,

@@ -8,10 +8,10 @@ const BASE_URL2 = "https://www.omdbapi.com/"
 
 export async function getTrendingMovies() {
   const res = await fetch(
-    `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`
+    "http://localhost:5000/api/movies/trending"
   )
   const data = await res.json()
-  return data.results
+  return data
 }
 
 export async function getNowPlayingMovies() {
