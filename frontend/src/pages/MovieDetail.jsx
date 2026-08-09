@@ -93,8 +93,8 @@ function MovieDetail() {
       </section>
 
       {/* Aggregated Scores Section */}
-      <section className="py-32 px-8 max-w-screen-2xl mx-auto">
-        <div className="flex flex-col gap-16">
+      <section className="py-24 px-8 max-w-screen-2xl mx-auto">
+        <div className="flex flex-col gap-12">
           <div className="flex flex-col gap-3">
             <h2 className="text-xs uppercase tracking-[0.4em] text-primary font-black">CRITICAL ANALYSIS</h2>
             <p className="text-4xl md:text-5xl font-headline font-black tracking-tight">The Verdict</p>
@@ -184,9 +184,9 @@ function MovieDetail() {
       </section>
 
       {/* Reddit Discussion Highlights */}
-      <section className="py-32 px-8 bg-white/[0.02] border-y border-white/5">
+      <section className="py-24 px-8 bg-white/[0.02] border-y border-white/5">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="flex items-center justify-between mb-20">
+          <div className="flex items-center justify-between mb-14">
             <div className="flex flex-col gap-3">
               <h2 className="text-xs uppercase tracking-[0.4em] text-tertiary font-black">COMMUNITY VOICE</h2>
               <p className="text-4xl md:text-5xl font-headline font-black tracking-tight">Social Discussion</p>
@@ -249,8 +249,8 @@ function MovieDetail() {
       </section>
 
       {/* Technical Specs */}
-      <section className="py-32 px-8 max-w-screen-2xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 border-t border-white/5 pt-24">
+      <section className="py-24 px-8 max-w-screen-2xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-t border-white/5 pt-16">
           <div className="flex flex-col gap-6">
             <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-on-surface/30">THE VISIONARY</h3>
             <p className="text-2xl font-headline font-bold text-on-surface">{director || "Not Listed"}</p>
@@ -260,7 +260,6 @@ function MovieDetail() {
             <ul className="flex flex-col gap-2 text-xl font-headline font-bold text-on-surface/80">
               {cast.map((c, i) => <li key={i} className="hover:text-primary transition-colors cursor-default">{c.name}</li>)}
             </ul>
-          <div className="flex flex-col gap-6">different perspectives on the movie pages</div>
           </div>
           <div className="flex flex-col gap-6">
             <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-on-surface/30">PRODUCTION</h3>
