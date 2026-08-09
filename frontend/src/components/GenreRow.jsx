@@ -59,7 +59,7 @@ function GenreRow({ title, movies }) {
 
         <div className="no-scrollbar -mx-4 flex gap-6 overflow-x-auto px-4 pb-8 scroll-smooth" ref={scrollRef}>
           {movies.map((movie) => (
-            <MovieCard key={movie.tmdbId} movie={movie} />
+            <MovieCard key={movie.tmdbId ?? movie.id} movie={movie} />
           ))}
         </div>
       </div>

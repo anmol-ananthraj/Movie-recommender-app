@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom"
 
 function MovieCard({ movie }) {
   const navigate = useNavigate()
-  const detailPath = `/movie/${movie.tmdbId}`
+  const movieId = movie.tmdbId ?? movie.id
+  const detailPath = movie.mediaType === "tv" ? `/tv/${movieId}` : `/movie/${movieId}`
 
   return (
-    <div className="flex-none w-[280px] group cursor-pointer" onClick={() => navigate(detailPath)}>
+    <div className="flex-none w-[280px] group cursor-pointer" onClick={() => movieId && navigate(detailPath)}>
       <div className="relative aspect-[2/3] rounded-xl overflow-hidden mb-4 bg-surface-container shadow-2xl">
         <img 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
@@ -14,7 +15,7 @@ function MovieCard({ movie }) {
         />
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           <span className="glass-card px-2 py-1 rounded text-[10px] font-bold text-secondary flex items-center gap-1">
-            <span className="material-symbols-outlined text-xs">star</span> {movie.rating?.toFixed(1)}
+            <span className="material-symbols-outlined text-xs">star</span> {movie.rating?.toFixed(1) ?? "N/A"}
           </span>
         </div>
         <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -25,7 +26,7 @@ function MovieCard({ movie }) {
       </div>
       <h3 className="font-headline font-bold text-lg text-on-surface truncate">{movie.title}</h3>
       <p className="text-xs font-body text-on-surface/40 uppercase tracking-widest mt-1">
-       {movie.releaseYear || "2024"}
+       {movie.releaseYear || movie.year || "2024"}
       </p>
     </div>
   )
