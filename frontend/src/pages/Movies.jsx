@@ -90,8 +90,8 @@ function Movies() {
     <div className="space-y-16 overflow-x-hidden px-0 py-0 pb-20">
       <MovieHeroCarousel movies={heroMovies} />
 
-      <div className="space-y-5 px-8 py-0 md:px-16">
-        <div className="space-y-5">
+      <div className="space-y-1 px-8 py-0 md:px-16">
+        <div className="space-y-1">
           <GenreRow title="New Releases" movies={rows.newReleases} />
           <GenreRow title="Horror" movies={rows.horror} />
           <GenreRow title="Action" movies={rows.action} />

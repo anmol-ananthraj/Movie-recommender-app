@@ -70,7 +70,7 @@ function Series() {
     <div className="space-y-16 overflow-x-hidden px-0 py-0 pb-20">
       <MovieHeroCarousel movies={heroSeries} />
 
-      <div className="space-y-5 px-8 py-0 md:px-16">
+      <div className="space-y-1 px-8 py-0 md:px-16">
         <GenreRow title="New realeases" movies={rows.newReleases} />
         <GenreRow title="Horror" movies={rows.horror} />
         <GenreRow title="Action" movies={rows.action} />
